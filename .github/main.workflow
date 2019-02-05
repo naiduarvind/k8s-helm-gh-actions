@@ -3,11 +3,11 @@ workflow "Deploy on push to master" {
   resolves = [
     "filter",
     "kube",
-   ]
+  ]
 }
 
 action "filter" {
-  uses = "actions/bin/filter@707718ee26483624de00bd146e073d915139a3d8"
+  uses = "actions/bin/filter@c6471707d308175c57dfe91963406ef205837dbd"
   args = "branch master"
 }
 
