@@ -12,7 +12,7 @@ action "filter" {
 }
 
 action "kube" {
-  uses = "docker://quay.io/kontena/mortar:0.3.1"
+  uses = "docker://registry.hub.docker.com/lachlanevenson/k8s-kubectl:v1.13.3"
   runs = "kubectl apply -f nginx-sample/"
   needs = ["filter"]
   secrets = ["KUBE_SERVER", "KUBE_TOKEN", "KUBE_CA"]
