@@ -27,6 +27,6 @@ action "Deploy to EKS" {
   needs = ["Configure Kube Credentials"]
   uses = "./.github/actions/eks-kubectl"
   runs = "sh -l -c"
-  args = ["SHORT_REF=$(echo $GITHUB_SHA | head -c7) && cat $GITHUB_WORKSPACE/manifests/ | sed 's/TAG/'\"$SHORT_REF\"'/' | kubectl apply -f - "]
+  args = ["SHORT_REF=$(echo $GITHUB_SHA | head -c7) && cat $GITHUB_WORKSPACE/manifests/nginx.yaml | sed 's/TAG/'\"$SHORT_REF\"'/' | kubectl apply -f - "]
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
