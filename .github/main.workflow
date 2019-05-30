@@ -16,11 +16,11 @@ action "Configure Kube Credentials" {
   needs = ["Branch Filter"]
   uses = "actions/aws/cli@master"
   env = {
-    CLUSTER_NAME = "learndot-sre-reference"
     AWS_DEFAULT_REGION = "us-west-2"
+    CLUSTER_NAME = "mooplayground"
   }
-  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
   args = "eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION"
+  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
 
 action "Deploy to EKS" {
@@ -28,5 +28,4 @@ action "Deploy to EKS" {
   uses = "./.github/actions/eks-kubectl"
   runs = "sh -l -c"
   args = ["SHORT_REF=$(echo $GITHUB_SHA | head -c7) && cat $GITHUB_WORKSPACE/manifests/nginx.yaml | sed 's/TAG/'\"$SHORT_REF\"'/' | kubectl apply -f - "]
-  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
